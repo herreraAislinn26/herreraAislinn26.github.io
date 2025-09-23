@@ -21,6 +21,14 @@ background-size: cover;
         /* Change me! */
         left: 0px;
       }
+      .title{
+        text-align: center;
+        font-size: 48px;
+        font-family:fantasy;
+        margin-top:20px;
+        margin-bottom:20px;
+        color:hotpink;
+      }
 body {
   background-color: #000000;
 }
@@ -32,10 +40,13 @@ body {
   </head>
 
   <body class="board">
+    <h1 class="title">Bouncing Box</h1>
     <!-- HTML for the box -->
-    <div class="box">?</div>
+    <div id="box" class="box">0</div>
 
+    <script src="script.js"></script>
     <script>
+    
       (function () {
         "use strict";
         /* global jQuery */
@@ -60,14 +71,16 @@ body {
         box.on("click", handleBoxClick);
 
         // moves the Box to a new position on the screen along the X-Axis
-        function moveBoxTo(newPositionX) {
+        function moveBoxTo(newPositionX,newPositionY){
           box.css("left", newPositionX);
-        }
+          box.css("top", newPositionY);
+           }
 
         // changes the text displayed on the Box
-        function changeBoxText(newText) {
+        function changeBoxText(newText){
           box.text(newText);
         }
+      
 
         //////////////////////////////////////////////////////////////////
         /////////////////// YOUR CODE BELOW HERE /////////////////////////
@@ -76,7 +89,11 @@ body {
         // TODO 2 - Variable declarations
           var positionX = 0;
           var points = 0;
-          var speed = 10;
+          var speedX = 10;
+          var positionY = 0;
+          var speedY = 10;
+          var boardHeight = jQuery(window).height();
+          var boardWidth = jQuery(window).width();
 
 
 
@@ -87,18 +104,28 @@ body {
          * If the box drifts off the screen, turn it around!
          */
         function update() {
-        moveBoxTo(positionX); // Moves box to x-position 200
+        moveBoxTo(positionX, positionY)
         
-        positionX = positionX + speed;
+          
+        
+        positionX = positionX + speedX;
         
         if (positionX > boardWidth){
-          speed = speed * -1;
+          speedX = speedX * -1;
         }
       
         else if(positionX < 0){
-          speed *= -1;
+          speedX *= -1;
         }
+        positionY = positionY + speedY;
         
+        if (positionY > boardWidth){
+          speedY = speedY * -1;
+        }
+      
+        else if(positionY < 0){
+          speedY *= -1;
+        }
 
           
         }
